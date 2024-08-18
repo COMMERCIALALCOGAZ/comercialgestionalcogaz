@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Alcogaz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <div class="homebg">
+        <div class="navigationbarbg">
+            <div class="diviconnavbar">
+                <i class="bi bi-x-lg" id="x" style="display: none;"></i>
+                <i class="bi bi-list" id="m"></i>
+                <img src="img/ALKOGAZ_LOGO.png" alt="">
+
+            </div>
+            <a href="#" class="a_navbar" id="affichebgaddbordero">
+                <p>Nouveau borderau </p>
+                <i class="bi bi-clipboard-data-fill"></i>
+            </a>
+        </div>
+
+        <div class="holdbg">
+            <div class="controlbg" id="controlbg"></div>
+
+
+            <div class="datashowbg" id="datashowbg"></div>
+        </div>
+    </div>
+
+    <div class="bg_add_info" id="bg_add_info" style="display: none;">
+        <div class="bordereau_a_ajouter">
+            <br>
+            <h1>Bordereau de montant encaissé</h1>
+            <h2>SARL ALCOGAZ</h2>
+            <p>Veuillez ajouter toutes les valeurs des pièces ou billets encaissés pour finaliser et clôturer la journée.</p>
+            <br>
+            <img src="img/ALKOGAZ_LOGO.png" alt="Logo ALCOGAZ">
+            <br><br><br>
+        
+            <label for="b2000">Nombre de billets de 2000 DA</label>
+            <input type="number" id="b2000" value="0" min="0"><br><br>
+        
+            <label for="b1000">Nombre de billets de 1000 DA</label>
+            <input type="number" id="b1000" value="0" min="0"><br><br>
+        
+            <label for="b500">Nombre de billets de 500 DA</label>
+            <input type="number" id="b500" value="0" min="0"><br><br>
+        
+            <label for="p200">Nombre de pièces de 200 DA</label>
+            <input type="number" id="p200" value="0" min="0"><br><br>
+        
+            <label for="p100">Nombre de pièces de 100 DA</label>
+            <input type="number" id="p100" value="0" min="0"><br><br>
+        
+            <label for="p50">Nombre de pièces de 50 DA</label>
+            <input type="number" id="p50" value="0" min="0"><br><br>
+        
+            <label for="p20">Nombre de pièces de 20 DA</label>
+            <input type="number" id="p20" value="0" min="0"><br><br>
+        
+            <label for="p10">Nombre de pièces de 10 DA</label>
+            <input type="number" id="p10" value="0" min="0"><br><br>
+        
+            <label for="p5">Nombre de pièces de 5 DA</label>
+            <input type="number" id="p5" value="0" min="0"><br><br>
+        
+            <br><br>
+            
+            <label for="totcaisse">Montant total dans la caisse (en DA)</label>
+            <input type="number" id="totcaisse" value="0" min="0"><br><br>
+        
+            <br><br>
+
+            <label for="totlogiciel">Montant total dans l'ogiciel (en DA)</label>
+            <input type="number" id="totlogiciel" value="0" min="0"><br><br>
+        
+            <br><br>
+        
+            <button class="btnsouvgarder" id="savetodraftbtn">Ajouter comme brouillon</button>
+
+            <br><br>
+
+            <button class="btnsupprimer" id="anulertosavetodraftbtn">Anuller</button>
+
+            <br><br>
+
+            <div class="wating_bordereau_a_ajouter" id="wating_bordereau_a_ajouter" style="display: none;">
+                <div class="cs-loader-inner">
+                    <label> ●</label>
+                    <label> ●</label>
+                    <label> ●</label>
+                    <label> ●</label>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div class="bg_add_info" id="afficherlafacture" style="display: flex;"> 
+        <div class="bordereau_a_ajouter" id="resultaffichagefacture">
+            <br>
+            <h1>Bordereau de montant encaissé</h1>
+            <h2>SARL ALCOGAZ</h2>
+            <p>Voici les données que vous avez déjà saisies.</p>
+            <br>
+            <img src="img/ALKOGAZ_LOGO.png" alt="Logo ALCOGAZ">
+            <br><br><br>
+            <div class="bordereau_a_ajouter_details">
+                <h2>Details de borderau</h2>
+                <div class="ligne"></div>
+                <div class="header_bordereau_a_ajouter_details">
+                    <p class="content_tableau_bor">type</p>
+                    <p class="content_tableau_bor">nomber</p>
+                    <p class="content_tableau_bor">tot</p>
+                </div>
+                <div class="ligne"></div>
+                <div class="content_tableau_bor_id" id="content_tableau_bor_id">
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor">2000</p>
+                        <p class="content_tableau_bor">0</p>
+                        <p class="content_tableau_bor">0</p>
+                    </div>                <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor">2000</p>
+                        <p class="content_tableau_bor">4</p>
+                        <p class="content_tableau_bor">50000</p>
+                    </div>
+                </div>
+                <div class="ligne"></div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+
+    </div>
+
+    <script type="module" src="home.js"></script>
+
+    
+</body>
+</html>

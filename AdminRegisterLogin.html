@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCOGAZ COMMERCIAL</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    
+</head>
+<body>
+
+    <div class="bg">
+        <div class="bg_img">
+            <img  src="img/ALKOGAZ_LOGO.png" alt="">
+            <div class="textbgimg">
+                <h1>
+                    Page de Connexion Administrateur de Commercial Alcogaz
+                </h1>
+                <p>Bienvenue sur la plateforme d'administration de Commercial Alcogaz, votre portail sécurisé pour gérer tous les aspects de votre service en ligne. Notre interface de connexion simplifiée vous permet d'accéder rapidement à vos outils de gestion, vous offrant un contrôle total sur votre activité commerciale.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="bg_v_ligne"></div>
+
+        <div class="bg_connexion">
+            <div class="loginRegisterbg" style="display: flex;" id="login_bg">
+                <form id="loginForm" class="conncxion_inputs">
+                    <h1>Connectez-vous</h1>
+                    <p>Bienvenue dans l'Espace Administrateur de service Commercial</p>
+                    <div class="inpts">
+                        <label for="email">Email:</label>
+                        <input type="email" id="loginEmail" required>
+                        <label for="password">Mot de passe:</label>
+                        <input type="password" id="loginPassword" required autocomplete="current-password">
+                    </div>
+                  <button class="btn" type="submit">
+                        <div id="original" style="display: block;">
+                            Se Connecter
+                        </div>
+                        <div class="cs-loader-inner" id="loader" style="display: none;">
+                            <label> ●</label>
+                            <label> ●</label>
+                            <label> ●</label>
+                            <label> ●</label>
+                        </div>
+                        <div id="Done" style="display: none;">
+                            terminée
+                        </div>
+                  </button>
+                  <br><br>
+                  <p>J'ai oublié mon mot de passe ,<a href="#" id="recupereMDP"> Récupérer mon compt.</a> </p>
+                  <!--   <p>Je n'ai pas de compte, <a href="#" id="creeCompte">créez un compt.</a></p> --> 
+                     <br><br>
+                  <p id="message_firebase_login"></p>
+                </form>
+            </div>
+
+ <!--           <div class="loginRegisterbg"style="display: none;" id="register_bg">
+                <form id="registerForm" class="conncxion_inputs">
+                    <h1>S'inscrire</h1>
+                    <p>Bienvenue dans l'Espace Administrateur de service Commercial</p>
+                    <br>
+                    <h3>Informations Personnelles </h3>
+                    <div class="inpts">
+                        <label for="registerNom">Nom:</label>
+                        <input type="text" id="registerNom" required>
+                        <label for="registerPrenom">Prénom:</label>
+                        <input type="text" id="registerPrenom" required>
+                    </div>
+                    <h3>Informations du compte</h3>
+                    <div class="inpts">
+                        <label for="email">Email:</label>
+                        <input type="email" id="registerEmail" required>
+                        <label for="password">Mot de passe:</label>
+                        <input type="password" id="registerPassword" required autocomplete="current-password">
+
+                    </div>
+                  <button class="btn" type="submit">
+                        <div id="original1" style="display: block;">
+                            S'inscrire
+                        </div>
+                        <div class="cs-loader-inner" id="loader1" style="display: none;">
+                            <label> ●</label>
+                            <label> ●</label>
+                            <label> ●</label>
+                            <label> ●</label>
+                        </div>
+                        <div id="Done1" style="display: none;">
+                            terminée
+                        </div>
+                  </button>
+                  <br>
+                  <p>J'ai un compte, <a href="#" id="connecter">Connectez-vous</a></p>
+                  <p id="message_firebase_register"></p>
+                </form>    
+            </div>
+--> 
+            <div class="loginRegisterbg" style="display: none;" id="recuperation_bg">
+                <form id="recuperationForm" class="conncxion_inputs">
+                    <h1>Récupération de Mot de Passe</h1>
+                    <p>Entrez votre adresse e-mail ci-dessous. Un lien de réinitialisation de mot de passe vous sera envoyé.</p>
+                    <div class="inpts">
+                        <label for="email">Email:</label>
+                        <input type="email" id="recuperationEmail" required>
+                    </div>
+                  <button class="btn" type="submit">
+                        <div id="original2" style="display: block;">
+                            Envoyer le lien
+                        </div>
+                        <div class="cs-loader-inner" id="loader2" style="display: none;">
+                            <label> ●</label>
+                            <label> ●</label>
+                            <label> ●</label>
+                            <label> ●</label>
+                        </div>
+                        <div id="Done2" style="display: none;">
+                            terminée
+                        </div>
+                  </button>
+                  <br>
+                  <p>Retour à la page de <a href="#" id="anuulerRecuperation">connexion</a>.</p>
+                  <br><br>
+
+                  <p id="message_firebase_recuperation"></p>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="wating" id="wating" style="display: none;">
+            <div class="attender_bg" style="display: flex;"></div>
+            <div class="loader_of_watingpage"style="display: flex;">
+                <div class="cs-loader-inner" id="loader_attender" >
+                    <label> ●</label>
+                    <label> ●</label>
+                    <label> ●</label>
+                    <label> ●</label>
+                 </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    
+ <script type="module" src="AdminRegisterLogin.js"></script>
+ <script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+</body>
+</html>
