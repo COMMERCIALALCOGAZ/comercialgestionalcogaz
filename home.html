@@ -108,35 +108,128 @@
             <p>Voici les données que vous avez déjà saisies.</p>
             <br>
             <img src="img/ALKOGAZ_LOGO.png" alt="Logo ALCOGAZ">
-            <br><br><br>
+            <br>
             <div class="bordereau_a_ajouter_details">
-                <h2>Details de borderau</h2>
+                <h3 style="color: orange;" id="statut">Statut : Brouillon</h3>
+                <br>
+                <h3 class="creeparh3" id="nomsurborderau">cree par :</h3>
+                <br>
+                <h2>Détails du bordereau</h2>
                 <div class="ligne"></div>
                 <div class="header_bordereau_a_ajouter_details">
-                    <p class="content_tableau_bor">type</p>
-                    <p class="content_tableau_bor">nomber</p>
-                    <p class="content_tableau_bor">tot</p>
+                    <p class="content_tableau_bor">Type</p>
+                    <p class="content_tableau_bor">Nombre</p>
+                    <p class="content_tableau_bor">Total</p>
                 </div>
                 <div class="ligne"></div>
+
+                
                 <div class="content_tableau_bor_id" id="content_tableau_bor_id">
                     <div class="header_bordereau_a_ajouter_details">
-                        <p class="content_tableau_bor">2000</p>
-                        <p class="content_tableau_bor">0</p>
-                        <p class="content_tableau_bor">0</p>
-                    </div>                <div class="header_bordereau_a_ajouter_details">
-                        <p class="content_tableau_bor">2000</p>
-                        <p class="content_tableau_bor">4</p>
-                        <p class="content_tableau_bor">50000</p>
+                        <p class="content_tableau_bor" id="2000a">2000</p>
+                        <p class="content_tableau_bor" id="nombner2000"></p>
+                        <p class="content_tableau_bor" id="tot2000"></p>
                     </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="1000a">1000</p>
+                        <p class="content_tableau_bor" id="nombner1000"></p>
+                        <p class="content_tableau_bor" id="tot1000"></p>
+                    </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="500a">500</p>
+                        <p class="content_tableau_bor" id="nombner500"></p>
+                        <p class="content_tableau_bor" id="tot500"></p>
+                    </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="200a">200</p>
+                        <p class="content_tableau_bor" id="nombner200"></p>
+                        <p class="content_tableau_bor" id="tot200"></p>
+                    </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="100a">100</p>
+                        <p class="content_tableau_bor" id="nombner100"></p>
+                        <p class="content_tableau_bor" id="tot100"></p>
+                    </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="50a">50</p>
+                        <p class="content_tableau_bor" id="nombner50"></p>
+                        <p class="content_tableau_bor" id="tot50"></p>
+                    </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="20a">20</p>
+                        <p class="content_tableau_bor" id="nombner20"></p>
+                        <p class="content_tableau_bor" id="tot20"></p>
+                    </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="10a">10</p>
+                        <p class="content_tableau_bor" id="nombner10"></p>
+                        <p class="content_tableau_bor" id="tot10"></p>
+                    </div>
+                    <div class="header_bordereau_a_ajouter_details">
+                        <p class="content_tableau_bor" id="5a">5</p>
+                        <p class="content_tableau_bor" id="nombner5"></p>
+                        <p class="content_tableau_bor" id="tot5"></p>
+                    </div>
+                </div>
+                
+
+
+                <div class="ligne"></div>
+                <div class="header_bordereau_a_ajouter_details">
+                    <h3 class="content_tableau_bor">TOTAL (Encaissé)</h3>
+                    <p class="content_tableau_bor"></p>
+                    <h3 class="content_tableau_bor" id="content_tableau_bor_tot_livre">450,000 DA</h3>
+                </div>
+                <div class="ligne"></div>
+                <div class="header_bordereau_a_ajouter_details">
+                    <h3 class="content_tableau_bor" >TOTAL (Logiciel)</h3>
+                    <p class="content_tableau_bor"></p>
+                    <h3 class="content_tableau_bor" id="totdanslogiciel">300 DA</h3>
+                </div>
+    
+                <div class="ligne"></div>
+                <div class="header_bordereau_a_ajouter_details">
+                    <h3 class="content_tableau_bor">TOTAL (Caisse)</h3>
+                    <p class="content_tableau_bor"></p>
+                    <h3 class="content_tableau_bor" id="totdanslacaisse">300 DA</h3>
                 </div>
                 <div class="ligne"></div>
 
+                <br>
+    
+                <h2 id="h2select">Envoyer ce bordereau vers :</h2>
+                <p id="pselect" >Choisir une personne pour lui transmettre ce bordereau</p>
+                <br>
+                <select name="selectpersonne" id="selectpersonne" style="display: flex;">
+                    <option value="" disabled selected>Sélectionner une personne</option>
+                </select>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
 
 
+                <div class="btnsfactureafficher">
+                    <button class="btnsouvgarder" id="envoyerbordo" style="display: none;">Envoyer</button>
+                    <button class="btnmodifier" id="Annulerenvoyerbordo" style="display: flex">Annuler</button>
+                    <button class="btnsupprimer" id="supprimerledraftbordo" style="display: flex">Supprimer</button>
+    
+                </div>
+
+                <div class="waiting_bordereau_a_ajouter" id="waiting_bordereau_a_ajouter1" style="display: none;">
+                    <div class="cs-loader-inner">
+                        <label>●</label>
+                        <label>●</label>
+                        <label>●</label>
+                        <label>●</label>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
+    
 
     <div class="notification" id="notification">
 
@@ -144,6 +237,5 @@
 
     <script type="module" src="home.js"></script>
 
-    
 </body>
 </html>

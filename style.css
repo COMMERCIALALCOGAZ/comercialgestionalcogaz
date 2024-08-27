@@ -618,7 +618,7 @@ font-size: 2.3rem;
   border-radius: 10px;
   padding: 40px;
   color: var(--btn-color);
-  overflow-y: scroll;
+  overflow-y: auto;
   box-shadow: 0 4px 10px var(--btn-color);
   align-items: center;
   text-align: center;
@@ -706,7 +706,7 @@ font-size: 2.3rem;
 }
 .bordereau_a_ajouter_details{
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   padding: 10px;
   flex-direction: column;
@@ -728,10 +728,44 @@ font-size: 2.3rem;
 .content_tableau_bor_id{
   width: 100%;
 }
+.bordereau_a_ajouter_details select {
+  width: 100%;
+  padding: 5px;
+  color: var(--bg-color, #000); /* Ajout d'une valeur de secours */
+  background-color: var(--btn-color, #ccc); /* Ajout d'une valeur de secours */
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+  /* Ajout de styles de compatibilité pour les éléments de formulaire */
+  -webkit-appearance: none; /* Supprime les styles de formulaire natifs dans Safari */
+  appearance: none; /* Supprime les styles de formulaire natifs dans tous les navigateurs */
+}
 
+.espace_betwen_h{
 
-
-
+    width: 100%;
+    height: 1px;
+    display: flex;
+    margin-top: 10px;
+  }
+br{
+margin-top: 10px;
+}
+.btnsfactureafficher{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  
+}
+.btnsfactureafficher button{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 
