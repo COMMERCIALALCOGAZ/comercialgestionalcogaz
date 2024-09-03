@@ -9,13 +9,14 @@
   font-family: 'Poppins' , sans-serif;
 }
 :root{
- --bg-color:#e2faff;
- --second-bg-color:#356d79;
+ --bg-color:#e3ebec;
+ --second-bg-color:#476268;
  --text-color:#000000;
  --btn-color:#00252c;
  --btnHover-color:#000d0f;
  --error-text: rgb(255, 65, 48);
  --maincolor:#62e2ff;
+ 
 }
 html{
  font-size: 62.5%;
@@ -765,6 +766,10 @@ margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.img_de_fenetre{
+  width: 100px;
+  margin: 20px;
 }
 
 
