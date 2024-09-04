@@ -457,7 +457,7 @@ align-items: center;
 
 .holdbg{
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   background-color: var(--bg-color);
   display: flex;
   flex-direction: row;
@@ -926,13 +926,17 @@ margin-top: 10px;
     min-height: 100vh;
 
   }
-
+  .navigationbarbg{
+    height: 10vh;
+  }
 
   .btngoroptionstrans{
     width: 100px;
     height: 100px;
   }
-
+  .holdbg{
+    height: 90vh;
+  }
    .a_navbar p{
     display: none;
    }
