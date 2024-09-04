@@ -191,6 +191,7 @@ function ouvrirlemenu(userid){
       datashowbg.innerHTML="";
     }
 
+    const confirmerReceptionbordo = document.getElementById("confirmerReceptionbordo");
 
 
     async function actualiserdraft(){
@@ -494,7 +495,8 @@ function ouvrirlemenu(userid){
          selectpersonne.innerHTML='<option value="" disabled selected>Sélectionner une personne</option>';
          
          afficherlafacture.style.display = "flex";
-     
+         confirmerReceptionbordo.style.display="none";
+
          // Sélection des éléments du DOM
          const nomsurborderau = document.getElementById('nomsurborderau');
          const content_tableau_bor_tot_livre = document.getElementById('content_tableau_bor_tot_livre');
@@ -730,7 +732,7 @@ function ouvrirlemenu(userid){
           code += randomDigit;
       }
       return code;
-     }
+    }
 
     async function actualisermessageSent(){
       datashowbg.innerHTML="";
@@ -1118,7 +1120,8 @@ function ouvrirlemenu(userid){
          selectpersonne.innerHTML='<option value="" disabled selected>Sélectionner une personne</option>';
          
          afficherlafacture.style.display = "flex";
-     
+         confirmerReceptionbordo.style.display="none";
+
          // Sélection des éléments du DOM
          const nomsurborderau = document.getElementById('nomsurborderau');
          const content_tableau_bor_tot_livre = document.getElementById('content_tableau_bor_tot_livre');
@@ -1268,7 +1271,6 @@ function ouvrirlemenu(userid){
       datashowbg.innerHTML="";
 
       fermerlemenu();
- 
  
       const draftCollectionQuery_ = await getDocs(
        query(collection(db, 'users', userid, 'facture_reseptionner'), orderBy('timestamp', 'desc'))
@@ -1622,14 +1624,14 @@ function ouvrirlemenu(userid){
  
        async function importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,motdepasss,sentversuserName){
          const statut = document.getElementById("statut");
-         statut.innerHTML="statut :' "+ statutsentborderau + " ' &  mot de passe  : "+ motdepasss;
+         statut.innerHTML="statut :' "+ statutsentborderau ;
 
 
          if(statutsentborderau === "pending"){
           // bordereau.style.backgroundColor="#da990e8e"; 
           statut.style.color="#dd8500";  
-          statut.innerHTML="mot de passe  : "+ motdepasss;
-          supprimerledraftbordo.style.display="none";   
+          statut.innerHTML="";
+          supprimerledraftbordo.style.display="flex";   
 
 
           }
@@ -1651,7 +1653,7 @@ function ouvrirlemenu(userid){
          selectpersonne.innerHTML='<option value="" disabled selected>Sélectionner une personne</option>';
          
          afficherlafacture.style.display = "flex";
-     
+         confirmerReceptionbordo.style.display="flex";
          // Sélection des éléments du DOM
          const nomsurborderau = document.getElementById('nomsurborderau');
          const content_tableau_bor_tot_livre = document.getElementById('content_tableau_bor_tot_livre');
@@ -1784,6 +1786,41 @@ function ouvrirlemenu(userid){
              }
          }
 
+         confirmerReceptionbordo.onclick = async function() {
+              
+          const waiting_bordereau_a_ajouter1 = document.getElementById("waiting_bordereau_a_ajouter1");
+          waiting_bordereau_a_ajouter1.style.display="flex";
+              const code = generateCode();
+  
+              await addDoc(collection(db,"users",userid,"facture_valide"), {
+                
+                  archiveId: archiveId ,
+                  timestamp: Date.now(),
+                  creepar: nomuser,
+                  receptionnerpar: sentversuserName,
+                  total_livree_envoyer: total_livree_envoyer,
+                  statut:"valide",
+                  motdepass: code,
+              });
+ 
+              await deleteDoc(doc(db, "users", userid, "facture_reseptionner", borderauid)); 
+
+              // await addDoc(collection(db,"users",selectedValue,"facture_reseptionner"), {
+              //   archiveId: archiveId ,
+              //   timestamp: Date.now(),
+              //   creepar: nomuser,
+              //   total_livree_envoyer: total_livree_draft,
+              //   statut:"valide",
+              //   motdepass: code,
+              //   envoyerVersID: selectedValue,
+              // });
+
+              waiting_bordereau_a_ajouter1.style.display="none";
+              Annulerenvoyerbordo.click();
+              actualisermessageReceptionner();
+
+
+         }
 
           
      

@@ -414,6 +414,7 @@ align-items: center;
 }
 .navigationbarbg .a_navbar{
   padding: 15px;
+  max-height: 10vh;
   margin-right: 20px;
   background-color: #113b00;
   color: white;
@@ -470,7 +471,7 @@ align-items: center;
   background-color: var(--bg-color);
   padding: 40px;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   overflow: auto;
   padding-bottom: 100px;
 
