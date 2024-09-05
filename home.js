@@ -5,6 +5,7 @@
  const affichebgaddbordero = document.getElementById('affichebgaddbordero');
  const bg_add_info  = document.getElementById('bg_add_info'); 
  const anulertosavetodraftbtn = document.getElementById('anulertosavetodraftbtn'); 
+
  const wating_bordereau_a_ajouter = document.getElementById('wating_bordereau_a_ajouter'); 
  
  const notification = document.getElementById('notification'); 
@@ -13,8 +14,23 @@
      bg_add_info.style.display="flex";
  });
  anulertosavetodraftbtn.addEventListener('click', () => {
+  resetForm();
   bg_add_info.style.display="none";
+
 });
+
+
+function resetForm() {
+  const inputs = document.querySelectorAll('#bg_add_info input[type="number"]');
+  inputs.forEach(input => {
+      input.value = 0;
+  });
+  console.log("savetodraftbtn reset 0 ");
+
+}
+// document.getElementById('savetodraftbtn').onclick = resetForm;
+document.getElementById('anulertosavetodraftbtn').onclick = resetForm;
+
 
 // Définir le contenu HTML à insérer
 const content = `
@@ -92,7 +108,7 @@ const content = `
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
 import { getAuth,signOut } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
-import { getFirestore, doc,getDoc, getDocs, collection, addDoc ,query, orderBy,where,deleteDoc} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
+import { getFirestore, doc,getDoc, getDocs, collection, addDoc ,query, orderBy,where,deleteDoc,updateDoc} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 
 // Configuration Firebase
 const firebaseConfig = {
@@ -132,9 +148,15 @@ auth.onAuthStateChanged(async (user) => {
       fermerlemenu();
     });
 
+    const startManupilation = document.getElementById("startManupilation");
+    startManupilation.addEventListener('click', () => {
+      m.click();
+    });
+
 
     async function handleSave() {
       await saveToFirebase(id_user);
+    
     }
     
     document.getElementById('savetodraftbtn').addEventListener('click', handleSave);
@@ -156,14 +178,15 @@ auth.onAuthStateChanged(async (user) => {
   }
 
 });
- 
+const homepage_ = document.getElementById("homepage_");
+
 function fermerlemenu(){
   x.classList.add('rotate');
   m.classList.remove('rotate');
   controlbg.style.width ="0%";
   datashowbg.style.width ="100%";
   controlbg.innerHTML = "";
-
+  homepage_.style.display="flex";
 
 
   setTimeout(() => {
@@ -177,8 +200,9 @@ function ouvrirlemenu(userid){
   m.classList.add('rotate');
   x.classList.remove('rotate');
   controlbg.style.width ="100%";
-  datashowbg.style.width ="0%";
-  
+  datashowbg.style.width ="0px";
+  const homepage_ = document.getElementById("homepage_");
+  homepage_.style.display="none";
 
   setTimeout(() => {
     m.style.display = 'none';
@@ -192,6 +216,7 @@ function ouvrirlemenu(userid){
     }
 
     const confirmerReceptionbordo = document.getElementById("confirmerReceptionbordo");
+    
 
 
     async function actualiserdraft(){
@@ -473,15 +498,6 @@ function ouvrirlemenu(userid){
          }
  
        }
-       function resetForm() {
-            const inputs = document.querySelectorAll('#bg_add_info input[type="number"]');
-            inputs.forEach(input => {
-                input.value = 0;
-            });
-       }
-        document.getElementById('savetodraftbtn').onclick = resetForm;
-        document.getElementById('anulertosavetodraftbtn').onclick = resetForm;
-
 
  
        async function importerlesdonnersss(nomuser,total_livree_draft,archiveId,userid,borderauid){
@@ -643,16 +659,19 @@ function ouvrirlemenu(userid){
               waiting_bordereau_a_ajouter1.style.display="flex";
                   const code = generateCode();
       
-                  await addDoc(collection(db,"users",userid,"facture_envoyer"), {
-                    
-                      archiveId: archiveId ,
-                      timestamp: Date.now(),
-                      creepar: nomuser,
-                      total_livree_envoyer: total_livree_draft,
-                      statut:"pending",
-                      motdepass: code,
-                      envoyerVersID: selectedValue,
+                  const docRef = await addDoc(collection(db, "users", userid, "facture_envoyer"), {
+                    archiveId: archiveId,
+                    timestamp: Date.now(),
+                    creepar: nomuser,
+                    total_livree_envoyer: total_livree_draft,
+                    statut: "pending",
+                    motdepass: code,
+                    envoyerVersID: selectedValue,
+                    envoyerDeID: userid,
                   });
+
+                  const documentIDsent = docRef.id;
+                  console.log("ID du document envoyer a le id  :", documentIDsent);
      
                   await deleteDoc(doc(db, "users", userid, "facture_draft", borderauid)); 
 
@@ -664,6 +683,8 @@ function ouvrirlemenu(userid){
                     statut:"pending",
                     motdepass: code,
                     envoyerVersID: selectedValue,
+                    envoyerDeID: userid,
+                    factId: documentIDsent,
                   });
 
                   waiting_bordereau_a_ajouter1.style.display="none";
@@ -1398,8 +1419,9 @@ function ouvrirlemenu(userid){
            const nomuser = data.creepar;
            const statutsentborderau = data.statut;
            const motdepasss = data.motdepass;
+           const envoyerDeID = data.envoyerDeID;
            const envoyerVersID = data.envoyerVersID;
-
+           const factId = data.factId;
 
  
            totargentdanslesb = totargentdanslesb+total_livree_envoyer;
@@ -1413,7 +1435,7 @@ function ouvrirlemenu(userid){
            const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
        
            // Ajouter un bordereau dans la liste avec la date formatée
-           createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,motdepasss,envoyerVersID);
+           createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId);
 
 
 
@@ -1456,7 +1478,8 @@ function ouvrirlemenu(userid){
             
        });
        
-      function createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,motdepasss,envoyerVersID){
+      function createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId){
+        
 
            Annulerenvoyerbordo.style.display="flex";
            supprimerledraftbordo.style.display="none";
@@ -1487,63 +1510,75 @@ function ouvrirlemenu(userid){
            nomDiv.classList.add("option_b");
 
 
-           let sentversuserName ="";
+           
 
-           recupererlenomderecepteur(envoyerVersID);
-           async function recupererlenomderecepteur(envoyerVersID){
-
+           recupererlenomderecepteur(envoyerDeID);
+           
+           async function recupererlenomderecepteur(envoyerDeID){
+            
             // Référence au document spécifique dans la collection 'users'
-            const userDocRef = doc(db, 'users', envoyerVersID);
+            const userDocRef = doc(db, 'users', envoyerDeID);
 
             // Récupération du document
             const userDocSnapshot = await getDoc(userDocRef);
             
             // Vérification si le document existe et récupération du nom
-            if (userDocSnapshot.exists()) {
+
                 const userData = userDocSnapshot.data();
-                sentversuserName = userData.nom; // Remplace 'nom' par le nom du champ correspondant
+                const sentversuserName = userData.nom; // Remplace 'nom' par le nom du champ correspondant
                 console.log("Nom de l'utilisateur :", sentversuserName);
                 nomDiv.setAttribute("id", "nom_b");
-                const nomenvoyerversp = document.createElement("p");
-                nomenvoyerversp.textContent = sentversuserName;
-                nomDiv.appendChild(nomenvoyerversp); 
-                return sentversuserName;
-            } else {
-                console.log("Aucun document trouvé !");
-            }
-         }
+                const nomEnvoyerPar = document.createElement("p");
+                nomEnvoyerPar.textContent = sentversuserName;
+                nomDiv.appendChild(nomEnvoyerPar); 
+                mettreLefiltrageEnfunctionnement(sentversuserName);
+          }
+
+          async function mettreLefiltrageEnfunctionnement(sentversuserName){
+            console.log("userid = "+borderauid);
+                 const montantDiv = document.createElement("div");
+                 montantDiv.classList.add("option_b");
+                 montantDiv.setAttribute("id", "montant_b");
+                 const montantP = document.createElement("p");
+                 montantP.textContent = total_livree_envoyer +" DA";
+                 montantDiv.appendChild(montantP);
+               
+                 const dateDiv = document.createElement("div");
+                 dateDiv.classList.add("option_b");
+                 dateDiv.setAttribute("id", "date_b");
+                 const dateP = document.createElement("p");
+                 dateP.textContent = formattedDate ;
+                 dateDiv.appendChild(dateP);
+               
+                 bordereau.appendChild(nomDiv);
+                 bordereau.appendChild(montantDiv);
+                 bordereau.appendChild(dateDiv);
+         
+                 listBordereaux.appendChild(bordereau);
+      
+                 bordereau.onclick = async function() {
+                  importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName);
+                 };
+                 
+      
+                 btnValider.onclick = async function() {
+                  buttonvalider_messageeseption(nomuser, total_livree_envoyer, archiveId, userid, borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName);
+                 };
+
+          }
 
 
          
-           const montantDiv = document.createElement("div");
-           montantDiv.classList.add("option_b");
-           montantDiv.setAttribute("id", "montant_b");
-           const montantP = document.createElement("p");
-           montantP.textContent = total_livree_envoyer +" DA";
-           montantDiv.appendChild(montantP);
-         
-           const dateDiv = document.createElement("div");
-           dateDiv.classList.add("option_b");
-           dateDiv.setAttribute("id", "date_b");
-           const dateP = document.createElement("p");
-           dateP.textContent = formattedDate ;
-           dateDiv.appendChild(dateP);
-         
-           bordereau.appendChild(nomDiv);
-           bordereau.appendChild(montantDiv);
-           bordereau.appendChild(dateDiv);
-   
-           listBordereaux.appendChild(bordereau);
 
-           bordereau.onclick = async function() {
-            importerlesdonnersssMESSAGESENT(nomuser, total_livree_envoyer, archiveId, userid, borderauid,statutsentborderau,motdepasss,sentversuserName);
-           };
+         
+
         
 
        }
-       btnValider.onclick = async function() {
+
+       async function buttonvalider_messageeseption(nomuser, total_livree_envoyer, archiveId, userid, borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName){
         
- 
+        
         listBordereaux.innerHTML="";
  
         let totargentdanslesb = 0;
@@ -1585,14 +1620,14 @@ function ouvrirlemenu(userid){
           }
       
           // Récupérer les documents filtrés
-          const draftCollectionQuery_ = await getDocs(firestoreQuery);
+          const messagerecupereCollectionQuery_ = await getDocs(firestoreQuery);
       
           // Obtenir le nombre de documents récupérés
-          const numberOfDocuments = draftCollectionQuery_.size;
+          const numberOfDocuments = messagerecupereCollectionQuery_.size;
           bordereauxTitle.textContent = "Messages envoyé ("+ numberOfDocuments +")";
       
           // Traiter chaque document
-          draftCollectionQuery_.forEach((doc) => {
+          messagerecupereCollectionQuery_.forEach((doc) => {
               const data = doc.data();
               const borderauid = doc.id;
               const archiveId = data.archiveId;
@@ -1611,7 +1646,8 @@ function ouvrirlemenu(userid){
               const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
       
               // Ajouter un bordereau dans la liste avec la date formatée
-              createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid);
+              createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId);
+              
               
       
               // getdatageneralofborderau(archiveId);
@@ -1620,9 +1656,13 @@ function ouvrirlemenu(userid){
         }
 
      
-       }
+       
+       };
+
+
  
-       async function importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,motdepasss,sentversuserName){
+       async function importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName){
+        console.log("borderauid = "+borderauid);
          const statut = document.getElementById("statut");
          statut.innerHTML="statut :' "+ statutsentborderau ;
 
@@ -1758,6 +1798,16 @@ function ouvrirlemenu(userid){
              if (borderauid) {  // Vérifie si borderauid est défini
 
                  try {
+                     await updateDoc(doc(db, "users", envoyerDeID, "facture_envoyer", factId), {
+                       archiveId: archiveId,
+                       timestamp: Date.now(),
+                       creepar: nomuser,
+                       total_livree_envoyer: total_livree_envoyer,
+                       statut: "NoValide",
+                       envoyerVersID: envoyerVersID,
+                       envoyerDeID: userid,
+                     });
+                     
                      await deleteDoc(doc(db, "users", userid, "facture_reseptionner", borderauid)); 
          
                      notification.classList.add('show');
@@ -1765,6 +1815,7 @@ function ouvrirlemenu(userid){
                      notification.innerHTML = `Document supprimé avec succès!`; 
                      Annulerenvoyerbordo.click();
                      MessageSentactualiserbtn.click();
+                     
                      setTimeout(() => {
                          notification.classList.remove('show');
                      }, 5000);  
@@ -1800,20 +1851,20 @@ function ouvrirlemenu(userid){
                   receptionnerpar: sentversuserName,
                   total_livree_envoyer: total_livree_envoyer,
                   statut:"valide",
-                  motdepass: code,
+
               });
  
               await deleteDoc(doc(db, "users", userid, "facture_reseptionner", borderauid)); 
 
-              // await addDoc(collection(db,"users",selectedValue,"facture_reseptionner"), {
-              //   archiveId: archiveId ,
-              //   timestamp: Date.now(),
-              //   creepar: nomuser,
-              //   total_livree_envoyer: total_livree_draft,
-              //   statut:"valide",
-              //   motdepass: code,
-              //   envoyerVersID: selectedValue,
-              // });
+              await updateDoc(doc(db, "users", envoyerDeID, "facture_envoyer", factId), {
+                archiveId: archiveId,
+                timestamp: Date.now(),
+                creepar: nomuser,
+                total_livree_envoyer: total_livree_envoyer,
+                statut: "valide",
+                envoyerVersID: envoyerVersID
+              });
+              
 
               waiting_bordereau_a_ajouter1.style.display="none";
               Annulerenvoyerbordo.click();
@@ -1963,10 +2014,11 @@ async function saveToFirebase(userId) {
         console.log(`Données sauvegardées avec succès avec ID ${archiveRef.id} dans users/${userId}/facture_draft.`);
         wating_bordereau_a_ajouter.style.display="none";
         bg_add_info.style.display="none";
-        
+        resetForm();
         setTimeout(() => {
           notification.classList.remove('show');
         }, 5000);
+
 
     } catch (error) {
         console.error("Erreur lors de la sauvegarde des données :", error);
