@@ -611,48 +611,54 @@ input:focus {
 
 /* Bordereau à ajouter */
 .bordereau_a_ajouter {
+  width: 90%;
+  max-width: 800px;
+  height: 80%;
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  color: var(--btn-color);
+  overflow-y: auto;
+  box-shadow: 0 4px 10px var(--btn-color);
+}
+.bordereau_a_ajouter_prime{
   display: flex;
   flex-direction: column;
-  width: 80%;
-  max-width: 600px;
-  height: 70%;
+  width: 100%;
+  min-height: 100vh;
   background-color: var(--bg-color);
   border-radius: 10px;
   padding: 40px;
   color: var(--btn-color);
-  overflow-y: auto;
-  box-shadow: 0 4px 10px var(--btn-color);
   align-items: center;
   text-align: center;
 }
-
 /* Bordereau - Styles de texte */
-.bordereau_a_ajouter label {
+.bordereau_a_ajouter_prime label {
   font-size: 1.5rem;
 }
 
-.bordereau_a_ajouter button,
-.bordereau_a_ajouter input {
+.bordereau_a_ajouter_prime button,
+.bordereau_a_ajouter_prime input {
   width: 100%;
 }
 
-.bordereau_a_ajouter button {
+.bordereau_a_ajouter_prime button {
   font-size: 1.5rem;
 }
 
-.bordereau_a_ajouter img {
+.bordereau_a_ajouter_prime img {
   width: 150px;
 }
 
-.bordereau_a_ajouter h1 {
+.bordereau_a_ajouter_prime h1 {
   font-size: 2.4rem;
 }
 
-.bordereau_a_ajouter h2 {
+.bordereau_a_ajouter_prime h2 {
   font-size: 1.9rem;
 }
 
-.bordereau_a_ajouter p {
+.bordereau_a_ajouter_prime p {
   font-size: 1.4rem;
 }
 
@@ -706,7 +712,6 @@ input:focus {
   width: 100%;
   height: 1px;
   background-color: var(--btn-color);
-  display: flex;
 }
 
 /* Détails du bordereau */
@@ -967,7 +972,8 @@ br {
     padding: 20px;
     overflow-y: scroll; /* Added scroll fix */
   }
-
+  
+  
   .cree_stor_in_mira_bg {
     display: flex;
     z-index: 150;
