@@ -202,7 +202,9 @@ function ouvrirlemenu(userid){
   controlbg.style.width ="100%";
   datashowbg.style.width ="0px";
   const homepage_ = document.getElementById("homepage_");
-  homepage_.style.display="none";
+  if(homepage_){
+    homepage_.style.display="none";
+  }
 
   setTimeout(() => {
     m.style.display = 'none';
