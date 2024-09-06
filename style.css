@@ -775,12 +775,13 @@ br {
 /* Boutons de facturation */
 .btnsfactureafficher {
   width: 100%;
-  height: 40vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
   margin-bottom: 20px;
+  margin-top: 20px;
+
 }
 
 .btnsfactureafficher button {
