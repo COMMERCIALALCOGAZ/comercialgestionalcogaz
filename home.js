@@ -1420,7 +1420,7 @@ function ouvrirlemenu(userid){
            const total_livree_envoyer = data.total_livree_envoyer;
            const nomuser = data.creepar;
            const statutsentborderau = data.statut;
-           const motdepasss = data.motdepass;
+           const motdepass = data.motdepass;
            const envoyerDeID = data.envoyerDeID;
            const envoyerVersID = data.envoyerVersID;
            const factId = data.factId;
@@ -1437,7 +1437,7 @@ function ouvrirlemenu(userid){
            const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
        
            // Ajouter un bordereau dans la liste avec la date formatée
-           createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId);
+           createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId,motdepass);
 
 
 
@@ -1480,7 +1480,7 @@ function ouvrirlemenu(userid){
             
        });
        
-      function createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId){
+      function createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId,motdepass){
         
 
            Annulerenvoyerbordo.style.display="flex";
@@ -1514,26 +1514,31 @@ function ouvrirlemenu(userid){
 
            
 
-           recupererlenomderecepteur(envoyerDeID);
+           recupererlenomderecepteur(envoyerDeID,envoyerVersID);
            
-           async function recupererlenomderecepteur(envoyerDeID){
-            
-            // Référence au document spécifique dans la collection 'users'
-            const userDocRef = doc(db, 'users', envoyerDeID);
+           async function recupererlenomderecepteur(envoyerDeID,envoyerVersID){
+            console.log("envoyer de id:", envoyerDeID);
+            console.log("envoyer vers id:", envoyerVersID);
 
-            // Récupération du document
-            const userDocSnapshot = await getDoc(userDocRef);
-            
-            // Vérification si le document existe et récupération du nom
 
-                const userData = userDocSnapshot.data();
-                const sentversuserName = userData.nom; // Remplace 'nom' par le nom du champ correspondant
-                console.log("Nom de l'utilisateur :", sentversuserName);
+                 // Référence au document spécifique dans la collection 'users' 'de"
+                const userDocRef_vers = doc(db, 'users', envoyerDeID);
+                const userDocSnapshot = await getDoc(userDocRef_vers);
+                const userData_De= userDocSnapshot.data();
+                const sentDesuserName = userData_De.nom; // Remplace 'nom' par le nom du champ correspondant
+                console.log("envoyer vers  l'utilisateur :", sentDesuserName);
                 nomDiv.setAttribute("id", "nom_b");
                 const nomEnvoyerPar = document.createElement("p");
-                nomEnvoyerPar.textContent = sentversuserName;
+                nomEnvoyerPar.textContent = sentDesuserName;
                 nomDiv.appendChild(nomEnvoyerPar); 
+
+                // Référence au document spécifique dans la collection 'users' 'vers"
+                const userDocRef_Vers = doc(db, 'users', envoyerVersID);
+                const userDocSnapshot_Vers = await getDoc(userDocRef_Vers);
+                const userData_Vers = userDocSnapshot_Vers.data();
+                const sentversuserName = userData_Vers.nom;
                 mettreLefiltrageEnfunctionnement(sentversuserName);
+
           }
 
           async function mettreLefiltrageEnfunctionnement(sentversuserName){
@@ -1559,12 +1564,12 @@ function ouvrirlemenu(userid){
                  listBordereaux.appendChild(bordereau);
       
                  bordereau.onclick = async function() {
-                  importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName);
+                  importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName,motdepass);
                  };
                  
       
                  btnValider.onclick = async function() {
-                  buttonvalider_messageeseption(nomuser, total_livree_envoyer, archiveId, userid, borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName);
+                  buttonvalider_messageeseption(nomuser, total_livree_envoyer, archiveId, userid, borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName,motdepass);
                  };
 
           }
@@ -1578,7 +1583,7 @@ function ouvrirlemenu(userid){
 
        }
 
-       async function buttonvalider_messageeseption(nomuser, total_livree_envoyer, archiveId, userid, borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName){
+       async function buttonvalider_messageeseption(nomuser, total_livree_envoyer, archiveId, userid, borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName,motdepass){
         
         
         listBordereaux.innerHTML="";
@@ -1648,7 +1653,7 @@ function ouvrirlemenu(userid){
               const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
       
               // Ajouter un bordereau dans la liste avec la date formatée
-              createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId);
+              createBordereauMesssageReceptionner(nomuser, total_livree_envoyer, formattedDate,borderauid,archiveId,userid,statutsentborderau,envoyerDeID,envoyerVersID,factId,motdepass);
               
               
       
@@ -1663,7 +1668,7 @@ function ouvrirlemenu(userid){
 
 
  
-       async function importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName){
+       async function importerlesdonnersssMESSAGESENT(nomuser,total_livree_envoyer,archiveId,userid,borderauid,statutsentborderau,envoyerDeID,envoyerVersID,factId,sentversuserName,motdepass){
         console.log("borderauid = "+borderauid);
          const statut = document.getElementById("statut");
          statut.innerHTML="statut :' "+ statutsentborderau ;
@@ -1797,6 +1802,10 @@ function ouvrirlemenu(userid){
 
 
          supprimerledraftbordo.onclick = async function() {
+          const  waiting_bordereau_a_ajouter1  = document.getElementById("waiting_bordereau_a_ajouter1");  
+
+          waiting_bordereau_a_ajouter1.style.display="flex";
+
              if (borderauid) {  // Vérifie si borderauid est défini
 
                  try {
@@ -1817,11 +1826,14 @@ function ouvrirlemenu(userid){
                      notification.innerHTML = `Document supprimé avec succès!`; 
                      Annulerenvoyerbordo.click();
                      MessageSentactualiserbtn.click();
-                     
+                     waiting_bordereau_a_ajouter1.style.display="flex";
+
                      setTimeout(() => {
                          notification.classList.remove('show');
                      }, 5000);  
                  } catch (error) {
+                    waiting_bordereau_a_ajouter1.style.display="flex";
+
                      notification.classList.add('show');
                      notification.style.backgroundColor = "#e30000";
                      notification.innerHTML = `Erreur lors de la suppression du document : ${error.message}`; 
@@ -1830,6 +1842,8 @@ function ouvrirlemenu(userid){
                      }, 5000);  
                  }
              } else {
+                 waiting_bordereau_a_ajouter1.style.display="none";
+
                  notification.classList.add('show');
                  notification.style.backgroundColor = "#e30000";
                  notification.innerHTML = `Veuillez sélectionner un document valide.`; 
@@ -1840,39 +1854,47 @@ function ouvrirlemenu(userid){
          }
 
          confirmerReceptionbordo.onclick = async function() {
-              
-          const waiting_bordereau_a_ajouter1 = document.getElementById("waiting_bordereau_a_ajouter1");
-          waiting_bordereau_a_ajouter1.style.display="flex";
-              const code = generateCode();
-  
-              await addDoc(collection(db,"users",userid,"facture_valide"), {
-                
-                  archiveId: archiveId ,
-                  timestamp: Date.now(),
-                  creepar: nomuser,
-                  receptionnerpar: sentversuserName,
-                  total_livree_envoyer: total_livree_envoyer,
-                  statut:"valide",
+            // Demander à l'utilisateur d'entrer un code
+            var code = prompt("Veuillez entrer le mote de passe :");
 
-              });
- 
-              await deleteDoc(doc(db, "users", userid, "facture_reseptionner", borderauid)); 
+            // Vérifier si l'utilisateur a entré quelque chose
+            if (code === motdepass) {
 
-              await updateDoc(doc(db, "users", envoyerDeID, "facture_envoyer", factId), {
-                archiveId: archiveId,
-                timestamp: Date.now(),
-                creepar: nomuser,
-                total_livree_envoyer: total_livree_envoyer,
-                statut: "valide",
-                envoyerVersID: envoyerVersID
-              });
-              
-
-              waiting_bordereau_a_ajouter1.style.display="none";
-              Annulerenvoyerbordo.click();
-              actualisermessageReceptionner();
-
-
+                 const waiting_bordereau_a_ajouter1 = document.getElementById("waiting_bordereau_a_ajouter1");
+                 waiting_bordereau_a_ajouter1.style.display="flex";
+                     const code = generateCode();
+         
+                     await addDoc(collection(db,"users",userid,"facture_valide"), {
+                       
+                         archiveId: archiveId ,
+                         timestamp: Date.now(),
+                         creepar: nomuser,
+                         receptionnerpar: sentversuserName,
+                         total_livree_envoyer: total_livree_envoyer,
+                         statut:"valide",
+       
+                     });
+        
+                     await deleteDoc(doc(db, "users", userid, "facture_reseptionner", borderauid)); 
+       
+                     await updateDoc(doc(db, "users", envoyerDeID, "facture_envoyer", factId), {
+                       archiveId: archiveId,
+                       timestamp: Date.now(),
+                       creepar: nomuser,
+                       total_livree_envoyer: total_livree_envoyer,
+                       statut: "valide",
+                       envoyerVersID: envoyerVersID
+                     });
+                     
+       
+                     waiting_bordereau_a_ajouter1.style.display="none";
+                     Annulerenvoyerbordo.click();
+                     actualisermessageReceptionner();
+       
+                     alert("Le code : " + code + " est correct ! Le bordereau a été reçu avec succès.");
+                    } else {
+                alert("Le mot de passe que vous avez inséré est incorrect ou vous n'avez pas entré de code.");
+            }
          }
 
           
