@@ -828,10 +828,21 @@ br {
 }
 
 
+.bgverificationdedocument{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: 40px;
+}
 
 
 
+.bgverificationdedocument p{
 
+  font-size: 1.2rem;
+}
 
 
 
