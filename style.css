@@ -827,13 +827,20 @@ br {
   height: 200px;
 }
 
-
-.bgverificationdedocument{
+.bgverificationdedocument_bg{
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   overflow-y: scroll;
+  display: flex;
+
+}
+
+
+.bgverificationdedocument{
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   padding: 40px;
 }
 
@@ -843,8 +850,6 @@ br {
 
   font-size: 1.2rem;
 }
-
-
 
 
 
