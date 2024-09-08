@@ -1464,7 +1464,7 @@ function ouvrirlemenu(userid){
           doc.text(20, currentY, `Signature électronique : `);
           currentY += 5;
           // QR code generation and insertion
-          const texturl =  "https://commercialalcogaz.github.io/SARL_ALCOGAZ_lireQrcode.html?id=" + idBordArchive;
+          const texturl =  "https://commercialalcogaz.github.io/comercialgestionalcogaz/SARL_ALCOGAZ_lireQrcode.html?id=" + idBordArchive;
           const text = texturl.trim();
           QRCode.toDataURL(text, { errorCorrectionLevel: 'H' }, function (error, url) {
               if (error) {

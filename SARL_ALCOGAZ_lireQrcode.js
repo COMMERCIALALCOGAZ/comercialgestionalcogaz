@@ -78,23 +78,24 @@ async function affiche(idValue) {
              const idVer_= datas.archiveId;
 
              // Mise à jour des éléments DOM avec les données de Firestore
-             envoyer_par_ver.innerHTML = envoyerParVer_;
-             id_ver.innerHTML = idVer_;
-             statutVer.innerHTML = statutVer_;
-             ver2000.innerHTML = billets_2000;
-             ver1000.innerHTML = billets_1000;
-             ver500.innerHTML = billets_500;
-             ver200.innerHTML = pieces_200;
-             ver100.innerHTML = pieces_100;
-             ver50.innerHTML = pieces_50;
-             ver20.innerHTML = pieces_20;
-             ver10.innerHTML = pieces_10;
-             ver5.innerHTML = pieces_5;
+        // Mise à jour des éléments DOM avec les données de Firestore
+        document.getElementById("envoyer_par_ver").innerHTML = "Envoyé par : " + envoyerParVer_;
+        document.getElementById("id_ver").innerHTML = "ID : " + idVer_;
+        document.getElementById("statut_ver").innerHTML = "Statut du bordereau : " + statutVer_;
+        document.getElementById("2000_ver").innerHTML = "2000 DA : " + billets_2000;
+        document.getElementById("1000_ver").innerHTML = "1000 DA : " + billets_1000;
+        document.getElementById("500_ver").innerHTML = "500 DA : " + billets_500;
+        document.getElementById("200_ver").innerHTML = "200 DA : " + pieces_200;
+        document.getElementById("100_ver").innerHTML = "100 DA : " + pieces_100;
+        document.getElementById("50_ver").innerHTML = "50 DA : " + pieces_50;
+        document.getElementById("20_ver").innerHTML = "20 DA : " + pieces_20;
+        document.getElementById("10_ver").innerHTML = "10 DA : " + pieces_10;
+        document.getElementById("5_ver").innerHTML = "5 DA : " + pieces_5;
 
- 
-             // Mise à jour des totaux dans la caisse et dans le logiciel
-             totalEncaisserVer.innerHTML = total_caisse + " DA";
-             totalLogicelVer.innerHTML = tot_logiciel + " DA";
+        // Mise à jour des totaux dans la caisse et dans le logiciel
+        document.getElementById("total_encaisser_ver").innerHTML = "Total encaissé : " + total_caisse + " DA";
+        document.getElementById("total_logicel_ver").innerHTML = "Total (logiciel) : " + tot_logiciel + " DA";
+   
 
 
          } else {
