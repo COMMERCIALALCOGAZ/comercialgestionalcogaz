@@ -1,20 +1,6 @@
 
-
-const statutVer = document.getElementById("statut_ver");
-const ver2000 = document.getElementById("2000_ver");
-const ver1000 = document.getElementById("1000_ver");
-const ver500 = document.getElementById("500_ver");
-const ver200 = document.getElementById("200_ver");
-const ver100 = document.getElementById("100_ver");
-const ver50 = document.getElementById("50_ver");
-const ver20 = document.getElementById("20_ver");
-const ver10 = document.getElementById("10_ver");
-const ver5 = document.getElementById("5_ver");
-const totalEncaisserVer = document.getElementById("total_encaisser_ver");
-const totalLogicelVer = document.getElementById("total_logicel_ver");
 const terminerLaVerification = document.getElementById("terminerlaverification");
-const id_ver = document.getElementById("id_ver");
-const envoyer_par_ver = document.getElementById("envoyer_par_ver");
+const wating_bordereau_a_ajouter = document.getElementById("wating_bordereau_a_ajouter");
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
@@ -50,7 +36,7 @@ async function recupereddata(){
 
 async function affiche(idValue) {
     
-
+    wating_bordereau_a_ajouter.style.display="flex";
 
          // Référence et récupération des données depuis Firestore
          const docRef = doc(db, 'archive', idValue);
@@ -77,6 +63,10 @@ async function affiche(idValue) {
              const envoyerParVer_=  datas.creepar;
              const idVer_= datas.archiveId;
 
+             const totalAmount = (billets_2000 * 2000) + (billets_1000 * 1000) + (billets_500 * 500) +
+             (pieces_200 * 200) + (pieces_100 * 100) + (pieces_50 * 50) +
+             (pieces_20 * 20) + (pieces_10 * 10) + (pieces_5 * 5);
+
              // Mise à jour des éléments DOM avec les données de Firestore
         // Mise à jour des éléments DOM avec les données de Firestore
         document.getElementById("envoyer_par_ver").innerHTML = "Envoyé par : " + envoyerParVer_;
@@ -93,13 +83,17 @@ async function affiche(idValue) {
         document.getElementById("5_ver").innerHTML = "5 DA : " + pieces_5;
 
         // Mise à jour des totaux dans la caisse et dans le logiciel
-        document.getElementById("total_encaisser_ver").innerHTML = "Total encaissé : " + total_caisse + " DA";
+        document.getElementById("total_encaisser_ver").innerHTML = "Total encaissé : " + totalAmount + " DA";
         document.getElementById("total_logicel_ver").innerHTML = "Total (logiciel) : " + tot_logiciel + " DA";
+
    
+        wating_bordereau_a_ajouter.style.display="none";
 
 
          } else {
              console.log("Document does not exist");
+             wating_bordereau_a_ajouter.style.display="none";
+
          }
 
 
