@@ -3355,7 +3355,7 @@ function ouvrirlemenu(userid){
      
          doc.setFontSize(10);
          doc.setFont('Helvetica', 'normal');
-         doc.text(`Détails des Espèces:  LAROUI ABDELMALEK `, 20, 85);
+         doc.text(`Détails des Espèces:  DV`, 20, 85);
         //  doc.setFontSize(7);
         //  doc.text(`Le montant net à payer est de 42 924 DA, cependant, Monsieur Abdelmalek Ben Hamouda a donné l'ordre de payer uniquement 42 000 DA.`, 20, 90);
 
