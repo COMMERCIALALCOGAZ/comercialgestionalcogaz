@@ -3356,8 +3356,8 @@ function ouvrirlemenu(userid){
          doc.setFontSize(10);
          doc.setFont('Helvetica', 'normal');
          doc.text(`Détails des Espèces:  LAROUI ABDELMALEK `, 20, 85);
-         doc.setFontSize(7);
-         doc.text(`Le montant net à payer est de 42 924 DA, cependant, Monsieur Abdelmalek Ben Hamouda a donné l'ordre de payer uniquement 42 000 DA.`, 20, 90);
+        //  doc.setFontSize(7);
+        //  doc.text(`Le montant net à payer est de 42 924 DA, cependant, Monsieur Abdelmalek Ben Hamouda a donné l'ordre de payer uniquement 42 000 DA.`, 20, 90);
 
          
      
@@ -3450,7 +3450,7 @@ function ouvrirlemenu(userid){
          currentY += 5;
          // QR code generation and insertion
          
-         const texturl =  "https://alcogazcommercial.000.pe/SARL_ALCOGAZ_lireQrcode.html?id=" + idBordArchive;
+         const texturl =  "https://commercialalcogaz.github.io/comercialgestionalcogaz/SARL_ALCOGAZ_lireQrcode.html?id=" + idBordArchive;
          const text = texturl.trim();
          QRCode.toDataURL(text, { errorCorrectionLevel: 'H' }, function (error, url) {
              if (error) {
